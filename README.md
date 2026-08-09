@@ -20,10 +20,10 @@ Worker：`https://gh-release-proxy.gijmail.workers.dev`
 
 ```text
 # 原 GitHub Release 链接
-https://github.com/<你>/<仓>/releases/download/grok-1.0.0/grok-1.0.0-windows-x86_64.exe
+https://github.com/snakeJohn/grok-build-mirror/releases/download/grok-1.0.0/grok-1.0.0-windows-x86_64.exe
 
 # 加速（前面加上 Worker 地址 + /）
-https://gh-release-proxy.gijmail.workers.dev/https://github.com/<你>/<仓>/releases/download/grok-1.0.0/grok-1.0.0-windows-x86_64.exe
+https://gh-release-proxy.gijmail.workers.dev/https://github.com/snakeJohn/grok-build-mirror/releases/download/grok-1.0.0/grok-1.0.0-windows-x86_64.exe
 ```
 
 也可打开 Worker 首页粘贴链接自动生成。源码与重新部署见 [`cf-gh-proxy/`](cf-gh-proxy/)。
@@ -60,7 +60,7 @@ git init
 git add .
 git commit -m "feat: grok build mirror pipeline"
 # 换成你的仓库地址
-git remote add origin https://github.com/<你的用户名>/<仓库名>.git
+git remote add origin https://github.com/snakeJohn/grok-build-mirror.git
 git branch -M main
 git push -u origin main
 ```
@@ -182,3 +182,4 @@ A: 检查文件名中间是否有空格；正确为 `windows-x86_64`，不是 `w
 
 **Q: 只要 GitHub、不要 123**  
 A: 不配 123 Secret，或 Run 时勾选 `skip_123pan`。
+
