@@ -1,35 +1,31 @@
-# GitHub Release 加速（Cloudflare Worker）
+# DL — GitHub Release 加速门户
 
-反代 GitHub `releases/download`、`archive`、`raw` 下载，便于国内访问。
+短域名 Worker：`dl` → `https://dl.<subdomain>.workers.dev`
+
+## 功能
+
+- 访问码门控（Secret `ACCESS_CODE`）
+- 展示 `MIRROR_REPO` 最新 Release 与加速下载
+- 任意白名单内 GitHub 下载链接反代（支持 Range）
 
 ## 部署
 
 ```bash
-cd cf-gh-proxy
 npm i
-# 需环境变量 CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID
+export CLOUDFLARE_API_TOKEN=...
+export CLOUDFLARE_ACCOUNT_ID=...
+printf '%s' 'your-code' | npx wrangler secret put ACCESS_CODE
 npx wrangler deploy
 ```
 
-## 使用
+## 配置（wrangler.jsonc vars）
 
-```text
-https://<worker子域>.workers.dev/https://github.com/<owner>/<repo>/releases/download/<tag>/<file>
-```
+| 变量 | 说明 |
+|------|------|
+| `ALLOWED_REPOS` | 逗号分隔 `owner/repo` |
+| `MIRROR_REPO` | 门户展示的镜像仓库 |
+| `SITE_TITLE` | 品牌短名 |
 
-打开 Worker 根路径有粘贴生成页。
+## 素材
 
-## 限制仓库（推荐）
-
-`wrangler.jsonc` → `vars.ALLOWED_REPOS`：
-
-```jsonc
-"ALLOWED_REPOS": "yourname/123upload"
-```
-
-空字符串 = 允许所有公开 GitHub 下载路径（易被刷流量，上线后建议收紧）。
-
-## Secrets（GitHub Actions 部署时）
-
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
+见 [ASSETS.md](./ASSETS.md)。

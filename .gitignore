@@ -14,3 +14,7 @@ node_modules/
 .wrangler/
 .dev.vars
 
+
+*.local
+.access_code.local
+

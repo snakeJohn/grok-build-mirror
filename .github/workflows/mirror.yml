@@ -1,4 +1,4 @@
-name: Mirror Grok Build → GitHub Release → 123pan
+name: Mirror Grok Build → GitHub Release
 
 on:
   schedule:
@@ -16,12 +16,7 @@ on:
           - alpha
           - enterprise
       force:
-        description: "Re-download & re-upload even if version unchanged"
-        required: false
-        default: false
-        type: boolean
-      skip_123pan:
-        description: "Skip 123pan upload"
+        description: "Re-download even if version unchanged"
         required: false
         default: false
         type: boolean
@@ -60,11 +55,9 @@ jobs:
           CHANNEL="${{ github.event.inputs.channel || 'stable' }}"
           FORCE="${{ github.event.inputs.force || 'false' }}"
           VERSION="${{ github.event.inputs.version || '' }}"
-          SKIP_PAN="${{ github.event.inputs.skip_123pan || 'false' }}"
           echo "channel=$CHANNEL" >> "$GITHUB_OUTPUT"
           echo "force=$FORCE" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "skip_123pan=$SKIP_PAN" >> "$GITHUB_OUTPUT"
 
       - name: Fetch artifacts from GCS
         working-directory: scripts
@@ -108,35 +101,3 @@ jobs:
         run: |
           chmod +x scripts/publish_github_release.sh
           scripts/publish_github_release.sh
-
-      - name: Install optional boto3 (VIP S3 credential path)
-        if: steps.skip.outputs.skip != 'true' && steps.opts.outputs.skip_123pan != 'true'
-        run: pip install --quiet boto3
-
-      - name: Upload to 123pan
-        if: steps.skip.outputs.skip != 'true' && steps.opts.outputs.skip_123pan != 'true'
-        env:
-          # VIP web login (recommended if you only have VIP, no developer plan)
-          PAN123_USERNAME: ${{ secrets.PAN123_USERNAME }}
-          PAN123_PASSWORD: ${{ secrets.PAN123_PASSWORD }}
-          # Open platform (optional; needs developer membership)
-          PAN123_CLIENT_ID: ${{ secrets.PAN123_CLIENT_ID }}
-          PAN123_CLIENT_SECRET: ${{ secrets.PAN123_CLIENT_SECRET }}
-          PAN123_PARENT_ID: ${{ secrets.PAN123_PARENT_ID }}
-          PAN123_FOLDER: ${{ vars.PAN123_FOLDER || 'GrokBuild' }}
-          PAN123_MODE: ${{ vars.PAN123_MODE || 'auto' }}
-        working-directory: scripts
-        shell: bash
-        run: |
-          set -euo pipefail
-          HAS_VIP=0
-          HAS_OPEN=0
-          [[ -n "${PAN123_USERNAME:-}" && -n "${PAN123_PASSWORD:-}" ]] && HAS_VIP=1
-          [[ -n "${PAN123_CLIENT_ID:-}" && -n "${PAN123_CLIENT_SECRET:-}" ]] && HAS_OPEN=1
-          if [[ "$HAS_VIP" -eq 0 && "$HAS_OPEN" -eq 0 ]]; then
-            echo "No 123 secrets (need PAN123_USERNAME/PASSWORD for VIP, or CLIENT_ID/SECRET for Open)." | tee -a "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-          export PAN123_PARENT_ID="${PAN123_PARENT_ID:-0}"
-          python upload_123pan.py --dir ../artifacts --version "${{ steps.skip.outputs.version }}"
-          echo "Uploaded to 123pan: \`${PAN123_FOLDER}/${{ steps.skip.outputs.version }}\`" >> "$GITHUB_STEP_SUMMARY"

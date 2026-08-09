@@ -1,2 +1,0 @@
-# Optional: only needed when 123 VIP upload returns AWS S3 session credentials
-boto3>=1.34
