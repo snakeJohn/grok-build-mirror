@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gh-release-proxy",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-01",
+  "workers_dev": true,
+  // Leave empty = proxy any public GitHub release/raw/archive.
+  // After you create the mirror repo, set e.g. "yourname/123upload"
+  "vars": {
+    "ALLOWED_REPOS": "snakeJohn/grok-build-mirror"
+  }
+}
+

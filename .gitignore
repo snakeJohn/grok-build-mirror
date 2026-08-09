@@ -1,0 +1,16 @@
+artifacts/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+.venv/
+venv/
+.env
+*.part
+.DS_Store
+Thumbs.db
+
+node_modules/
+.wrangler/
+.dev.vars
+
