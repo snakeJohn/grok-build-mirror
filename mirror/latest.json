@@ -1,7 +1,48 @@
 {
-  "channel": null,
-  "version": null,
-  "fetched_at": null,
+  "channel": "stable",
+  "version": "1.0.0",
+  "fetched_at": "2026-08-09T00:59:06Z",
   "source": "https://storage.googleapis.com/grok-build-public-artifacts/cli",
-  "files": []
+  "files": [
+    {
+      "platform": "windows-x86_64",
+      "filename": "grok-1.0.0-windows-x86_64.exe",
+      "source_url": "https://storage.googleapis.com/grok-build-public-artifacts/cli/grok-1.0.0-windows-x86_64.exe",
+      "size": 139913032,
+      "sha256": "b238fe6b380074849c3a718b5989176559e698e4a8f5d27f11bff936e92585d1",
+      "md5": "9958beb9475e40b05c287cd5088b90f9"
+    },
+    {
+      "platform": "linux-x86_64",
+      "filename": "grok-1.0.0-linux-x86_64",
+      "source_url": "https://storage.googleapis.com/grok-build-public-artifacts/cli/grok-1.0.0-linux-x86_64",
+      "size": 163676672,
+      "sha256": "28dbc967a5843dae2374b6834dadbab95354e685c7e5c8dc750b92a4e5fc7c3e",
+      "md5": "49f1f7cd77324da59ec82b0beb4799a3"
+    },
+    {
+      "platform": "linux-aarch64",
+      "filename": "grok-1.0.0-linux-aarch64",
+      "source_url": "https://storage.googleapis.com/grok-build-public-artifacts/cli/grok-1.0.0-linux-aarch64",
+      "size": 133745832,
+      "sha256": "bb7c51116564a2219f6a49850815060f416918ac407f1f2ba82c53c0b0d4383f",
+      "md5": "0f01c0aacedb13f8a8c10cabe030499f"
+    },
+    {
+      "platform": "macos-x86_64",
+      "filename": "grok-1.0.0-macos-x86_64",
+      "source_url": "https://storage.googleapis.com/grok-build-public-artifacts/cli/grok-1.0.0-macos-x86_64",
+      "size": 147358000,
+      "sha256": "a82210a961deac9f0cb72ec6c334196abf76a587be4593bc59db2deab85ee6dc",
+      "md5": "4f798ff931620edc99256102318cf0b3"
+    },
+    {
+      "platform": "macos-aarch64",
+      "filename": "grok-1.0.0-macos-aarch64",
+      "source_url": "https://storage.googleapis.com/grok-build-public-artifacts/cli/grok-1.0.0-macos-aarch64",
+      "size": 131817232,
+      "sha256": "13c7f4f0b9abb00bf38216302ea4bab31f03e13555e3576620eca1de572a8d21",
+      "md5": "31f48c0f00ae43cdcbca8026d5c30f22"
+    }
+  ]
 }
